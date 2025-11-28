@@ -17,11 +17,8 @@ const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 export const auth = getAuth(app);
 
-// Use environment-based database selection
-// In production: use "(default)" database
-// In development: use "testdb" database
-const isDevelopment = process.env.NODE_ENV === "development";
-const databaseId = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_ID || (isDevelopment ? "testdb" : "(default)");
+// Use environment variable for database ID, default to "production"
+const databaseId = process.env.NEXT_PUBLIC_FIREBASE_DATABASE_ID || "production";
 
 export const db = getFirestore(app, databaseId);
 

@@ -10,9 +10,9 @@ admin.initializeApp({
   storageBucket: `${serviceAccount.project_id}.appspot.com`
 });
 
-// Use the "testdb" database instead of default
+// Use the "production" database
 const db = admin.firestore();
-db.settings({ databaseId: "testdb" });
+db.settings({ databaseId: "production" });
 const auth = admin.auth();
 
 async function createTenant({ companyId, name, code, plan='starter', expiryDays=365, userLimit=50 }) {
