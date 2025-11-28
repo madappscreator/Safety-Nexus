@@ -1,0 +1,72 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper function to check if user is authenticated
+    function isAuth() {
+      return request.auth != null;
+    }
+    
+    // Check file size (max 10MB)
+    function isValidSize() {
+      return request.resource.size < 10 * 1024 * 1024;
+    }
+    
+    // Check if it's an image
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+    
+    // Check if it's a document (PDF, Word, Excel)
+    function isDocument() {
+      return request.resource.contentType.matches('application/pdf') ||
+             request.resource.contentType.matches('application/msword') ||
+             request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.*') ||
+             request.resource.contentType.matches('image/.*');
+    }
+
+    // ============ COMPANY FILES ============
+    match /companies/{companyId}/{allPaths=**} {
+      allow read: if isAuth();
+      allow write: if isAuth() && isValidSize();
+    }
+
+    // ============ PERMIT DOCUMENTS ============
+    match /permits/{permitId}/{fileName} {
+      allow read: if isAuth();
+      allow write: if isAuth() && isValidSize() && isDocument();
+    }
+
+    // ============ INCIDENT PHOTOS ============
+    match /incidents/{incidentId}/{fileName} {
+      allow read: if isAuth();
+      allow write: if isAuth() && isValidSize() && isImage();
+    }
+
+    // ============ INSPECTION PHOTOS ============
+    match /inspections/{inspectionId}/{fileName} {
+      allow read: if isAuth();
+      allow write: if isAuth() && isValidSize() && isImage();
+    }
+
+    // ============ TRAINING MATERIALS ============
+    match /training/{trainingId}/{fileName} {
+      allow read: if isAuth();
+      allow write: if isAuth() && isValidSize() && isDocument();
+    }
+
+    // ============ ASSET DOCUMENTS ============
+    match /assets/{assetId}/{fileName} {
+      allow read: if isAuth();
+      allow write: if isAuth() && isValidSize() && isDocument();
+    }
+
+    // ============ USER PROFILES ============
+    match /users/{userId}/{fileName} {
+      allow read: if isAuth();
+      allow write: if isAuth() && request.auth.uid == userId && isValidSize() && isImage();
+    }
+  }
+}
+

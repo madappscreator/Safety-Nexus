@@ -1,0 +1,25 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Shape: Optional Rounded Square for App Icon feel -->
+  <rect x="0" y="0" width="512" height="512" rx="100" fill="#F5F7FA"/>
+  
+  <!-- Main Shield Shape -->
+  <path d="M256 440C256 440 400 360 400 200V100L256 40L112 100V200C112 360 256 440 256 440Z" fill="white" stroke="#0D47A1" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- The "Nexus" Circuit Nodes inside the Shield -->
+  <!-- Central Hub -->
+  <circle cx="256" cy="240" r="25" fill="#0D47A1"/>
+  
+  <!-- Top Right Node (Environment) -->
+  <circle cx="320" cy="160" r="20" fill="#2E7D32"/>
+  
+  <!-- Top Left Node (Safety) -->
+  <circle cx="192" cy="160" r="20" fill="#2E7D32"/>
+  
+  <!-- Bottom Node (Foundation) -->
+  <circle cx="256" cy="340" r="20" fill="#0D47A1"/>
+  
+  <!-- Circuit Lines Connecting Nodes to Center (The "Nexus") -->
+  <line x1="256" y1="240" x2="320" y2="160" stroke="#0D47A1" stroke-width="12"/>
+  <line x1="256" y1="240" x2="192" y2="160" stroke="#0D47A1" stroke-width="12"/>
+  <line x1="256" y1="240" x2="256" y2="340" stroke="#0D47A1" stroke-width="12"/>
+</svg>
